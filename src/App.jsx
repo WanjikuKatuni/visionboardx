@@ -1,7 +1,15 @@
 import React from 'react'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import theme from "./theme"
 
-export const App = () => {
+
+function App() {
   return (
-    <div>App</div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline/>
+    </ThemeProvider>
   )
 }
+
+export default App
+
