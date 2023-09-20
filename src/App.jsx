@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import {onAuthStateChanged} from 'firebase/auth'
 import {auth} from './firebase'
 import useStore from './store'
+import AppLoader from './components/utils/Layouts/AppLoader'
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
 
     return () => unsub()
   }, [])
+
+  if(loader) return <AppLoader/>
 
 
   return (
