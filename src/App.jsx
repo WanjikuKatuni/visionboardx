@@ -6,15 +6,19 @@ import AuthScreen from './pages/AuthScreen'
 import { useEffect } from 'react'
 import {onAuthStateChanged} from 'firebase/auth'
 import {auth} from './firebase'
+import useStore from './store'
 
 
 function App() {
 
+  // useStore Hook
+  const {loader, setLoginStatus} = useStore()
 
+  console.log(loader)
   // whenever the auth state changes
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, user => {
-      console.log(user)
+      setLoginStatus(!!user)
     })
 
     return () => unsub()
