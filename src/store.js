@@ -10,7 +10,7 @@ const store = (set) => ({
     setLoginStatus: (status) => 
         set ({
             isLoggedIn: status,
-            // loader: false,
+            loader: false,
         }, false, "setLoginStatus")
   })
 
