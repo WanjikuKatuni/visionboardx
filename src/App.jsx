@@ -7,7 +7,9 @@ import { useEffect } from 'react'
 import {onAuthStateChanged} from 'firebase/auth'
 import {auth} from './firebase'
 import useStore from './store'
-import AppLoader from './components/utils/Layouts/AppLoader'
+import AppLoader from './components/Layouts/AppLoader'
+import PublicOnlyRoute from './components/utils/PublicOnlyRoute'
+import VisionsScreen from './pages/VisionsScreen'
 
 
 function App() {
@@ -34,7 +36,11 @@ function App() {
 
       <BrowserRouter>
        <Routes>
-        <Route path="/" element={<AuthScreen/>} />
+        {/* returns to auth screen if not logged in or authenticated */}
+        <Route path="/" element={<PublicOnlyRoute Component={AuthScreen} />} />
+        {/* goes to vision board screen after authentication */}
+        <Route path="/visionboards" element={<VisionsScreen />} />
+
        </Routes>
       </BrowserRouter>
     </ThemeProvider>
