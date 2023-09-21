@@ -2,49 +2,52 @@ import React, { useState } from "react";
 import { Container, Stack, TextField, Button, Typography } from "@mui/material";
 import logo from "../assets/vb.jpg";
 import ImageEl from "../components/utils/ImageEl";
-import {signInWithEmailAndPassword, createUserWithEmailAndPassword} from 'firebase/auth'
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../firebase";
-
+import useStore from "../store";
 
 // intiial form state
 const initForm = {
-    email: "",
-    password: "",
-}
+  email: "",
+  password: "",
+};
 
 function AuthScreen() {
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
 
-    const [form, setForm] = useState(initForm)
+  const [form, setForm] = useState(initForm);
 
-    const authText = isLogin
-        ? "Do not have an account?"
-        : "Already have an account?";
+  const {setToaster} = useStore()
 
-    
-    const handleChange = event => setForm((oldForm)=> ({
-        ...oldForm, [event.target.name]: event.target.value,
-    }))
+  const authText = isLogin
+    ? "Do not have an account?"
+    : "Already have an account?";
 
-    const handleAuth = async () => {
-        try {
-            setLoading(true)
-            if(isLogin){
-                await signInWithEmailAndPassword(auth, form.email, form.password)
-            }
-            else {
-                await createUserWithEmailAndPassword(auth, form.email, form.password)
-            }
-        } catch (error) {
-            const errMsg = error.code.split('auth/')[1].split('-').join(' ')
-            console.log(errMsg)
-            setLoading(false)
-        }
+  const handleChange = (event) =>
+    setForm((oldForm) => ({
+      ...oldForm,
+      [event.target.name]: event.target.value,
+    }));
 
+  const handleAuth = async () => {
+    try {
+      setLoading(true);
+      if (isLogin) {
+        await signInWithEmailAndPassword(auth, form.email, form.password);
+      } else {
+        await createUserWithEmailAndPassword(auth, form.email, form.password);
+      }
+    } catch (error) {
+      const errMsg = error.code.split("auth/")[1].split("-").join(" ");
+      setToaster(errMsg);
+      setLoading(false);
     }
-
+  };
 
   return (
     <Container maxWidth="xs" sx={{ mt: 10 }}>
@@ -58,17 +61,32 @@ function AuthScreen() {
       </Stack>
       {/* textfield */}
       <Stack spacing={2}>
-        <TextField onChange={handleChange} value={form.email} name="email" label="Email" />
-        <TextField onChange={handleChange} value={form.password} name="password" label="Password" />
+        <TextField
+          onChange={handleChange}
+          value={form.email}
+          name="email"
+          label="Email"
+        />
+        <TextField
+          onChange={handleChange}
+          value={form.password}
+          name="password"
+          label="Password"
+        />
         {/* buttons */}
-        <Button  disabled={loading || !form.email.trim() || !form.password.trim()} onClick={handleAuth} size="large" variant="contained">
+        <Button
+          disabled={loading || !form.email.trim() || !form.password.trim()}
+          onClick={handleAuth}
+          size="large"
+          variant="contained"
+        >
           {isLogin ? "Login" : "Sign Up"}
         </Button>
       </Stack>
       <Typography
-    //   change from oldstate to newstate
+        //   change from oldstate to newstate
         onClick={() => setIsLogin((o) => !o)}
-        sx={{cursor: "pointer"}}
+        sx={{ cursor: "pointer" }}
         mt={3}
         textAlign="center"
         color="#C0C0C0"
