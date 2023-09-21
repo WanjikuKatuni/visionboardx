@@ -3,6 +3,13 @@ This application allows the user to draga nd drop vision images from todo, to in
 
 The images are static as the user cannot upload the image. This was a requirement for the HNGx hackathon. Otherwise, it is posible to make the user upload images. For more information, reach me at annritawanjiku77@gmail.com
 
+## auth page
+![image](/public/authpage.png)
+
+## drag and drop page
+![image](/public/dndpage.png)
+
+
 ## Useage
 
 User can sign up and login to the platform and enjoy dragging and dropping the imgaes
