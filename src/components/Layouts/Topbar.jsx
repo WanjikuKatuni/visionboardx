@@ -8,7 +8,10 @@ import {auth} from '../../firebase'
 
 export const Topbar = () => {
   return (
-    <AppBar position="static">
+    <AppBar sx={{
+      borderBottom: "5px solid",
+      borderColor: "gray"
+    }} position="static">
         <Toolbar sx={{
             justifyContent: "space-between"
         }}>
