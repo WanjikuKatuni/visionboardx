@@ -1,8 +1,18 @@
-# React + Vite
+# VisionBoard
+This application allows the user to draga nd drop vision images from todo, to inprogress to completed.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The images are static as the user cannot upload the image. This was a requirement for the HNGx hackathon. Otherwise, it is posible to make the user upload images. For more information, reach me at annritawanjiku77@gmail.com
 
-Currently, two official plugins are available:
+## Useage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+User can sign up and login to the platform and enjoy dragging and dropping the imgaes
+
+## Setup
+Clone the repository, install dependencies and run npm run dev on your local terminal
+
+## Technologies used
+vite + react
+firebase
+
+
+#Enjoy
