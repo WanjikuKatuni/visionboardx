@@ -44,37 +44,34 @@ export default function VisionsScreen() {
     const draggedImage = imageData[status][index];
 
     // when image is droped in same status map
-    if(status === newStatus  && index !== newIndex) {
+    if (status === newStatus && index !== newIndex) {
+      // Remove the image from the old status
+      const updatedOldStatusImages = imageData[status].filter(
+        (_, i) => i !== parseInt(index)
+      );
 
-        // Remove the image from the old status
-        const updatedOldStatusImages = imageData[status].filter(
-          (_, i) => i !== parseInt(index)
-        );
+      // add image on new index
+      const updatedStatusImages = [...updatedOldStatusImages];
+      updatedStatusImages.splice(newIndex, 0, draggedImage);
 
-        // add image on new index
-        const updatedStatusImages = [...updatedOldStatusImages];
-        updatedStatusImages.splice(newIndex, 0, draggedImage);
-
-        // update state
-        setImageData((prevImageData) => ({
-            ...prevImageData,
-            [status]: updatedStatusImages,
-          }));
-    
- 
+      // update state
+      setImageData((prevImageData) => ({
+        ...prevImageData,
+        [status]: updatedStatusImages,
+      }));
     }
 
     // when dropped in differnt status map
-    if(status !== newStatus){
-         // Remove the image from the old status
-        const updatedOldStatusImages = imageData[status].filter(
+    if (status !== newStatus) {
+      // Remove the image from the old status
+      const updatedOldStatusImages = imageData[status].filter(
         (_, i) => i !== parseInt(index)
       );
-  
+
       // Add the image to the new status
       const updatedNewStatusImages = [...imageData[newStatus]];
       updatedNewStatusImages.splice(newIndex, 0, draggedImage);
-  
+
       // Update old and new state
       setImageData((prevImageData) => ({
         ...prevImageData,
@@ -82,22 +79,19 @@ export default function VisionsScreen() {
         [newStatus]: updatedNewStatusImages,
       }));
     }
-
-
   };
 
-//   move images within status
+  //   move images within status
 
-    const moveImageWithinStatus = (status, fromIndex, toIndex) => {
-        const statusImages = [...imageData[status]];
-        const [movedImage] = statusImages.splice(fromIndex, 1);
-        statusImages.splice(toIndex, 0, movedImage);
-        setImageData((prevImageData) => ({
-        ...prevImageData,
-        [status]: statusImages,
-        }));
-    };
-
+  const moveImageWithinStatus = (status, fromIndex, toIndex) => {
+    const statusImages = [...imageData[status]];
+    const [movedImage] = statusImages.splice(fromIndex, 1);
+    statusImages.splice(toIndex, 0, movedImage);
+    setImageData((prevImageData) => ({
+      ...prevImageData,
+      [status]: statusImages,
+    }));
+  };
 
   return (
     <>
@@ -119,8 +113,8 @@ export default function VisionsScreen() {
           <div
             key={status}
             onDragOver={onDragOver}
-            onDrop={(e)=> onDrop(e, status)}
-            style={{ flex: '1', minWidth: '200px', padding: '8px' }}
+            onDrop={(e) => onDrop(e, status)}
+            style={{ flex: "1", minWidth: "200px", padding: "8px" }}
             // name={statusMap[status]}
 
             // images={imageData[status]}
@@ -132,31 +126,50 @@ export default function VisionsScreen() {
             //   }));
             // }}
           >
-          <h2>{statusMap[status]}</h2>
+            <h2>{statusMap[status]}</h2>
             {imageData[status].map((image, index) => (
               <div
                 key={index}
                 draggable
                 onDragStart={(e) => onDragStart(e, status, index)}
-                style={{ cursor: 'grab' }}
-                onDragEnd={() => setImageData(imageData)} 
-                onDragOver={(e) => e.preventDefault()} 
+                style={{ cursor: "grab" }}
+                onDragEnd={() => setImageData(imageData)}
+                onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => {
-                    e.preventDefault();
-                    const fromIndex = parseInt(e.dataTransfer.getData("index"));
-                    moveImageWithinStatus(status, fromIndex, index);
-                  }}
-                  style={{
-                    cursor: "grab",
-                    border: "1px solid #ddd",
-                    padding: "8px",
-                    marginBottom: "4px",
-                  }}
+                  e.preventDefault();
+                  const fromIndex = parseInt(e.dataTransfer.getData("index"));
+                  moveImageWithinStatus(status, fromIndex, index);
+                }}
+                style={{
+                  cursor: "grab",
+                  border: "1px solid #ddd",
+                  padding: "8px",
+                  marginBottom: "4px",
+                }}
               >
-                <img src={image} alt={`Image ${index}`} style={{ maxWidth: '100%' }} />
+                <div
+                  style={{
+                    paddingBottom: "100%", // 1:1 aspect ratio (adjust as needed)
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt={`Image ${index}`}
+                    style={{
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                  />
+                </div>
               </div>
             ))}
-            </div>
+          </div>
         ))}
       </Grid>
     </>
