@@ -10,6 +10,7 @@ import useStore from './store'
 import AppLoader from './components/Layouts/AppLoader'
 import PublicOnlyRoute from './components/utils/PublicOnlyRoute'
 import VisionsScreen from './pages/VisionsScreen'
+import PrivateOnlyRoute from './components/utils/PrivateOnlyRoute'
 
 
 function App() {
@@ -38,14 +39,25 @@ function App() {
        <Routes>
         {/* returns to auth screen if not logged in or authenticated */}
         <Route path="/" element={<PublicOnlyRoute Component={AuthScreen} />} />
+        
         {/* goes to vision board screen after authentication */}
-        <Route path="/visionboards" element={<VisionsScreen />} />
+        <Route path="/visionboards" element={<PrivateOnlyRoute Component={VisionsScreen} />} />
 
        </Routes>
       </BrowserRouter>
     </ThemeProvider>
+
+  
   )
 }
 
 export default App
+
+
+
+
+
+
+
+
 
