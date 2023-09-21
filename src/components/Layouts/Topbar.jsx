@@ -3,6 +3,8 @@ import {AppBar, Toolbar, Button, Stack } from "@mui/material"
 import ImageEl from '../utils/ImageEl'
 import logo from "../../assets/vb.jpg"
 import LogoutIcon from '@mui/icons-material/Logout';
+import {signOut} from 'firebase/auth'
+import {auth} from '../../firebase'
 
 export const Topbar = () => {
   return (
@@ -15,7 +17,7 @@ export const Topbar = () => {
 
             {/* right */}
             <Stack direction="row" spacing={2}>
-                <Button startIcon={<LogoutIcon />} variant="contained">Logout</Button>
+                <Button onClick={() => signOut(auth)} startIcon={<LogoutIcon />} variant="contained">Logout</Button>
             </Stack>
         </Toolbar>
     </AppBar>
