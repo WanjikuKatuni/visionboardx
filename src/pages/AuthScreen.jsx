@@ -58,6 +58,7 @@ function AuthScreen() {
           Visualize your goals and dreams for increased motivation and
           productivity. <br /> Access your vision board Anytime, Anywhere
         </Typography>
+        <Typography color="red" variant="h5">Click Do not have an account to get started</Typography>
       </Stack>
       {/* textfield */}
       <Stack spacing={2}>
